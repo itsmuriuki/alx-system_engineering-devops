@@ -1,2 +1,2 @@
 #!/bin/bash
-cat /etc/password | grep -v bin
+cat /etc/password | grep bin -v
