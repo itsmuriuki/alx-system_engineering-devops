@@ -1,6 +1,6 @@
-#This project is about Shell Commands
+# This project is about Shell Commands
 
-##0. Where am I?
+## 0. Where am I?
 ### pwd command gives the absolute path name of the current working directory
 
 ## 1. What's in there?
