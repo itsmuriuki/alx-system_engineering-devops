@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
-Pings a To-DO API for data for all users and writes it to a Json file
+Pings a To-Do API for data for all users and writes it to a JSON file
 """
-
 import csv
 import json
 import requests

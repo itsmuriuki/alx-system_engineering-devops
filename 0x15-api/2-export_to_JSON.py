@@ -1,29 +1,26 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """
-Pings a To-Do API for data for all users and writes it to a JSON file
+Pings a To-Do API for data for a specified user and writes it to a JSON file
 """
-
 import csv
 import json
 import requests
-from requests.api import request
+from sys import argv
 
 if __name__ == '__main__':
-    employee_id = 1
-    user_tasks = {}
+    employee_id = argv[1]
     url_todo = 'https://jsonplaceholder.typicode.com/todos/'
     url_user = 'https://jsonplaceholder.typicode.com/users/'
-    users = requests.get(url_user).json()
+    todo = requests.get(url_todo, params={'userId': employee_id})
+    user = requests.get(url_user, params={'id': employee_id})
 
-    for employees_id in range (1, len(users) + 1):
-        todo = requests.get(url_todo, params={'userId': employee_id})
-        user = requests.get(url_user, params={'id':employee_id})
+    todo_dict_list = todo.json()
+    user_dict_list = user.json()
+    task_list = []
+    user_tasks = {}
+    employee = user_dict_list[0].get('username')
 
-        todo_dict_list = todo.json()
-        user_dict_list = user.json()
-        task_list = []
-        employee = user_dict_list[0].get('username')
-
+    with open("{}.json".format(employee_id), "w+") as jsonfile:
         for task in todo_dict_list:
             status = task.get('completed')
             title = task.get('title')
@@ -34,5 +31,5 @@ if __name__ == '__main__':
             task_list.append(task_dict)
         user_tasks[employee_id] = task_list
 
-    with open("todo_all_employees.json", "w+") as jsonfile:
-        json.dump(user_tasks, jsonfile)
+        data = json.dumps(user_tasks)
+        jsonfile.write(data)

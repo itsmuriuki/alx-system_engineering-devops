@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 """
-Ping a RO-Do API for data on a specified user and saves the data to a csv file
+Pings a To-Do API for data on a specified user and saves the data to a CSV file
 """
-
 import csv
 import requests
 from sys import argv
-
-from requests.sessions import TooManyRedirects
 
 if __name__ == '__main__':
     employee_id = argv[1]
@@ -23,9 +20,9 @@ if __name__ == '__main__':
 
     with open("{}.csv".format(employee_id), "a+") as csvfile:
         csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-        for tasks in todo_dict_list:
-            status = tasks['completed']
-            title = tasks['title']
+        for task in todo_dict_list:
+            status = task['completed']
+            title = task['title']
             csvwriter.writerow(["{}".format(employee_id),
                                 "{}".format(employee),
                                 "{}".format(status),
