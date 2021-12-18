@@ -1,21 +1,22 @@
 #!/usr/bin/python3
 """
-Module for displaying all hot list entries in a speciffied subreddit
+Module for displaying all hot list entries in a specified subreddit
 """
 import requests
 
-def recurse(subreddit, hot_list=[], after=[]):
+
+def recurse(subreddit, hot_list=[], after=''):
     """
-        Recurcively displays all hot list entriess in a subreddit
+        Recursively displays all hot list entries in a subreddit
     """
     url = 'https://www.reddit.com/r/{}/hot.json?after={}'.format(
         subreddit, after)
-    header = {'User-Agent': 'itsmuriuki'}
-    
+    header = {'User-Agent': 'itsmuriuki@itsmuriuki'}
+
     req = requests.get(url, headers=header, allow_redirects=False)
     if req.status_code == 200:
         req = req.json()
-        data = data.get('data')
+        data = req.get('data')
         children = data.get('children')
         for post in children:
             post_data = post.get('data')
@@ -29,4 +30,3 @@ def recurse(subreddit, hot_list=[], after=[]):
             return recurse(subreddit, hot_list, after)
     else:
         return None
-
